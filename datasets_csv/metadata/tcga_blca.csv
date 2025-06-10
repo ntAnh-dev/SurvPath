@@ -1,4 +1,4 @@
-,case_id,slide_id,age,site,survival_months,survival_months_dss,survival_months_pfi,censorship,censorship_dss,censorship_pfi,is_female,oncotree_code,train
+index,case_id,slide_id,age,site,survival_months,survival_months_dss,survival_months_pfi,censorship,censorship_dss,censorship_pfi,is_female,oncotree_code,train
 0,TCGA-5N-A9KM,TCGA-5N-A9KM-01Z-00-DX1.5197F750-D17F-459B-B74D-846F5F50F7B7.svs,73,5N,17.666666666666668,17.666666666666668,9.2,0,0,0,1,BLCA,1.0,1.0
 1,TCGA-BL-A5ZZ,TCGA-BL-A5ZZ-01Z-00-DX1.4CF32B22-118E-4570-B341-0F35258329E6.svs,80,BL,12.566666666666666,12.566666666666666,8.066666666666666,1,1,0,1,BLCA,1.0,1.0
 2,TCGA-CF-A3MH,TCGA-CF-A3MH-01Z-00-DX1.4A6F7BDC-B7D2-4203-AA8E-7BA5DB8BF3AC.svs,75,CF,13.266666666666667,13.266666666666667,13.266666666666667,1,1,1,0,BLCA,1.0,1.0
