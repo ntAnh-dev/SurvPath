@@ -1,12 +1,12 @@
 #!/bin/bash
 
-DATA_ROOT_DIR='/media/ssd/survpath/' # where are the TCGA features stored?
+DATA_ROOT_DIR='/content/drive/MyDrive/bio_data_wsi_pt' # where are the TCGA features stored?
 BASE_DIR="/home/guillaume/Documents/multimodal/SurvPath" # where is the repo cloned?
 TYPE_OF_PATH="combine" # what type of pathways? 
 MODEL="survpath" # what type of model do you want to train?
 DIM1=8
 DIM2=16
-STUDIES=("coadread")
+STUDIES=("blca")
 LRS=(0.00005 0.0001 0.0005 0.001)
 DECAYS=(0.00001 0.0001 0.001 0.01)
 
