@@ -202,15 +202,20 @@ class SurvivalDatasetFactory:
         """
 
         #---> read labels 
-        self.label_data = pd.read_csv(os.path.join('/content/SurvPath', self.label_file), low_memory=False)
-        print(' _setup_metadata_and_labels\n', self.label_data.columns, self.label_data, '\n end set upup')
+        self.label_data = pd.read_csv(
+            os.path.join('/content/SurvPath', self.label_file),
+            index_col=0,
+            sep=',',
+            usecols=['index', 'case_id', 'slide_id', 'age', 'site', 'survival_months', 
+                    'survival_months_dss', 'survival_months_pfi', 'censorship', 
+                    'censorship_dss', 'censorship_pfi', 'is_female', 'oncotree_code', 'train'],
+            low_memory=False
+        )
         #---> minor clean-up of the labels 
         uncensored_df = self._clean_label_data()
 
         #---> create discrete labels
-        print('start _discretize_survival_months')
         self._discretize_survival_months(eps, uncensored_df)
-        print('end _discretize_survival_months')
   
         #---> get patient info, labels, and metada
         self._get_patient_dict()
@@ -260,7 +265,6 @@ class SurvivalDatasetFactory:
         # cut will choose bins so that the values of bins are evenly spaced. Each bin may have different frequncies
         disc_labels, q_bins = pd.cut(self.patients_df[self.label_col], bins=q_bins, retbins=True, labels=False, right=False, include_lowest=True)
         self.patients_df.insert(2, 'label', disc_labels.values.astype(int))
-        print('_discretize_survival_months', self.patients_df.columns, self.patients_df)
         self.bins = q_bins
         
     def _get_patient_data(self):
@@ -483,13 +487,8 @@ class SurvivalDatasetFactory:
             scaler = {}
         split = all_splits[split_key]
         split = split.dropna().reset_index(drop=True)
-        
-
         mask = self.label_data['case_id'].isin(split.tolist())
-        print(args.dataset_factory.label_data)
         df_metadata_slide = args.dataset_factory.label_data.loc[mask, :].reset_index(drop=True)
-        print(df_metadata_slide, '_get_split_from_df')
-        print(args.dataset_factory.label_data.columns)
         # select the rna, meth, mut, cnv data for this split
         omics_data_for_split = {}
         for key in args.dataset_factory.all_modalities.keys():
@@ -588,7 +587,7 @@ class SurvivalDatasetFactory:
             sample=True
         elif split_key == "val":
             sample=False
-            
+
         split_dataset = SurvivalDataset(
             split_key=split_key,
             fold=fold,
@@ -662,7 +661,6 @@ class SurvivalDataset(Dataset):
         self.num_pathways = len(omic_names)
         self.sample = sample
 
-        print('SurvivalDataset', self.metadata.columns)
         # for weighted sampling
         self.slide_cls_id_prep()
         print("[LOG] Metadata before slide_cls_id_prep:\n", self.metadata.columns.tolist())
