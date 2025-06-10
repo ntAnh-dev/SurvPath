@@ -28,13 +28,13 @@ def _prepare_for_experiment(args):
 
     args.device = device
     print(args.device)
-    args.split_dir = os.path.join("splits", args.which_splits, args.study)
+    args.split_dir = os.path.join("/content/SurvPath/splits", args.which_splits, args.study)
     args.combined_study = args.study
     args = _get_custom_exp_code(args)
     _seed_torch(args.seed)
 
-    assert os.path.isdir(args.split_dir)
     print('Split dir:', args.split_dir)
+    assert os.path.isdir(args.split_dir)
 
     #---> where to stroe the experiment related assets
     _create_results_dir(args)
@@ -64,7 +64,7 @@ def _prepare_for_experiment(args):
     _print_and_log_experiment(args, settings)
 
     #---> load composition df 
-    composition_df = pd.read_csv("./datasets_csv/pathway_compositions/{}_comps.csv".format(args.type_of_path), index_col=0)
+    composition_df = pd.read_csv("/content/SurvPath/datasets_csv/pathway_compositions/{}_comps.csv".format(args.type_of_path), index_col=0)
     composition_df.sort_index(inplace=True)
     args.composition_df = composition_df
 

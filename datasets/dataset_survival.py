@@ -118,7 +118,7 @@ class SurvivalDatasetFactory:
             - None 
         
         """
-        self.signatures = pd.read_csv("./datasets_csv/metadata/signatures.csv")
+        self.signatures = pd.read_csv("/content/SurvPath/datasets_csv/metadata/signatures.csv")
         self.omic_names = []
         for col in self.signatures.columns:
             omic = self.signatures[col].dropna().unique()
@@ -144,7 +144,7 @@ class SurvivalDatasetFactory:
         # self.signatures = pd.read_csv("./datasets_csv/metadata/signatures.csv")
         
         # running with hallmarks, reactome, and combined signatures
-        self.signatures = pd.read_csv("./datasets_csv/metadata/{}_signatures.csv".format(self.type_of_path))
+        self.signatures = pd.read_csv("/content/SurvPath/datasets_csv/metadata/{}_signatures.csv".format(self.type_of_path))
         
         self.omic_names = []
         for col in self.signatures.columns:
@@ -165,7 +165,7 @@ class SurvivalDatasetFactory:
             - None
             
         """
-        path_to_data = "./datasets_csv/clinical_data/{}_clinical.csv".format(self.study)
+        path_to_data = "/content/SurvPath/datasets_csv/clinical_data/{}_clinical.csv".format(self.study)
         self.clinical_data = pd.read_csv(path_to_data, index_col=0)
     
     def _setup_omics_data(self):
@@ -182,7 +182,7 @@ class SurvivalDatasetFactory:
         self.all_modalities = {}
         for modality in ALL_MODALITIES:
             self.all_modalities[modality.split('_')[0]] = pd.read_csv(
-                os.path.join(self.omics_dir, modality),
+                os.path.join('/content/SurvPath/', self.omics_dir, modality),
                 engine='python',
                 index_col=0
             )
@@ -202,7 +202,7 @@ class SurvivalDatasetFactory:
         """
 
         #---> read labels 
-        self.label_data = pd.read_csv(self.label_file, low_memory=False)
+        self.label_data = pd.read_csv(os.path.join('/content/SurvPath', self.label_file), low_memory=False)
 
         #---> minor clean-up of the labels 
         uncensored_df = self._clean_label_data()
@@ -401,7 +401,7 @@ class SurvivalDatasetFactory:
         """
 
         assert csv_path 
-        all_splits = pd.read_csv(csv_path)
+        all_splits = pd.read_csv(os.path.join('/content/SurvPath', csv_path))
         print("Defining datasets...")
         train_split, scaler = self._get_split_from_df(args, all_splits=all_splits, split_key='train', fold=fold, scaler=None)
         val_split = self._get_split_from_df(args, all_splits=all_splits, split_key='val', fold=fold, scaler=scaler)

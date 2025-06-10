@@ -13,7 +13,7 @@ from models.model_MCATPathways import MCATPathways
 from models.model_SurvPath import SurvPath
 from models.model_SurvPath_with_nystrom import SurvPath_with_nystrom
 from models.model_TMIL import TMIL
-from models.model_motcat import MCATPathwaysMotCat
+# from models.model_motcat import MCATPathwaysMotCat
 from sksurv.metrics import concordance_index_censored, concordance_index_ipcw, brier_score, integrated_brier_score, cumulative_dynamic_auc
 from sksurv.util import Surv
 
@@ -194,13 +194,13 @@ def _init_model(args):
         model_dict = {'fusion': args.fusion, 'omic_sizes': args.omic_sizes, 'n_classes': args.n_classes}
         model = MCATPathways(**model_dict)
 
-    elif args.modality == "coattn_motcat":
+    # elif args.modality == "coattn_motcat":
 
-        model_dict = {
-            'fusion': args.fusion, 'omic_sizes': args.omic_sizes, 'n_classes': args.n_classes,
-            "ot_reg":0.1, "ot_tau":0.5, "ot_impl":"pot-uot-l2"
-        }
-        model = MCATPathwaysMotCat(**model_dict)
+    #     model_dict = {
+    #         'fusion': args.fusion, 'omic_sizes': args.omic_sizes, 'n_classes': args.n_classes,
+    #         "ot_reg":0.1, "ot_tau":0.5, "ot_impl":"pot-uot-l2"
+    #     }
+    #     model = MCATPathwaysMotCat(**model_dict)
 
     # survpath 
     elif args.modality == "survpath":

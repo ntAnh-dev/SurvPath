@@ -16,8 +16,8 @@ do
     do 
         for STUDY in ${STUDIES[@]};
         do
-            CUDA_VISIBLE_DEVICES=2 python main.py \
-                --study tcga_${STUDY} --task survival --split_dir splits --which_splits 5foldcv \
+            CUDA_VISIBLE_DEVICES=2 python /content/SurvPath/main.py \
+                --study tcga_${STUDY} --task survival --split_dir /content/SurvPath/splits --which_splits 5foldcv \
                 --type_of_path $TYPE_OF_PATH --modality $MODEL --data_root_dir $DATA_ROOT_DIR/$STUDY/uni_features/ --label_file datasets_csv/metadata/tcga_${STUDY}.csv \
                 --omics_dir datasets_csv/raw_rna_data/${TYPE_OF_PATH}/${STUDY} --results_dir results_${STUDY} \
                 --batch_size 1 --lr $lr --opt radam --reg $decay \
