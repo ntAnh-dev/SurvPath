@@ -42,7 +42,7 @@ class SurvPath(nn.Module):
     def __init__(
         self, 
         omic_sizes=[100, 200, 300, 400, 500, 600],
-        wsi_embedding_dim=1024,
+        wsi_embedding_dim=768,
         dropout=0.1,
         num_classes=4,
         wsi_projection_dim=256,
