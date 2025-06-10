@@ -304,6 +304,9 @@ class SurvivalDatasetFactory:
             key = (key, int(censorship))
             self.label_data.at[i, 'label'] = label_dict[key]
 
+            print("[LOG] After _get_label_dict - label_data columns:", self.label_data.columns.tolist())
+            print("[LOG] Unique labels:", self.label_data['label'].unique())
+
         self.num_classes=len(label_dict)
         self.label_dict = label_dict
 
@@ -330,6 +333,9 @@ class SurvivalDatasetFactory:
         self.patient_dict = patient_dict
         self.label_data = self.patients_df
         self.label_data.reset_index(drop=True, inplace=True)
+
+        print("[LOG] After _get_patient_dict - label_data columns:", self.label_data.columns.tolist())
+        print("[LOG] First 3 rows:\n", self.label_data.head(20))
 
     def _cls_ids_prep(self):
         r"""
@@ -659,7 +665,8 @@ class SurvivalDataset(Dataset):
         print('SurvivalDataset', self.metadata.columns)
         # for weighted sampling
         self.slide_cls_id_prep()
-    
+        print("[LOG] Metadata before slide_cls_id_prep:\n", self.metadata.columns.tolist())
+
     def _get_valid_cols(self):
         r"""
         Getter method for the variable self.valid_cols 
@@ -681,7 +688,9 @@ class SurvivalDataset(Dataset):
         for i in range(self.num_classes):
             self.slide_cls_ids[i] = np.where(self.metadata['label'] == i)[0]
 
-            
+            print("[LOG] Metadata columns in SurvivalDataset:", self.metadata.columns.tolist())
+            print("[LOG] Sample metadata row:\n", self.metadata.head(1))
+
     def __getitem__(self, idx):
         r"""
         Given the modality, return the correctly transformed version of the data
